@@ -1,6 +1,6 @@
 {
   "name": "fastify-dynamodm",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "Fastify plugin to share DynamoDM handles to Dynamo DB table(s) across routes.",
   "main": "index.js",
   "scripts": {
