@@ -1,5 +1,7 @@
 ## fastify-dynamodm: Fastify plugin for DynamoDM
 
+[![CI](https://github.com/autopulated/fastify-dynamodm/actions/workflows/test.yml/badge.svg)](https://github.com/autopulated/fastify-dynamodm/actions/workflows/test.yml)
+[![Coverage Status](https://coveralls.io/repos/github/autopulated/fastify-dynamodm/badge.svg?branch=main)](https://coveralls.io/github/autopulated/fastify-dynamodm?branch=main)
 [![NPM version](https://img.shields.io/npm/v/fastofy-dynamodm.svg?style=flat)](https://www.npmjs.com/package/fastify-dynamodm)
 
 Fastify plugin for the dynamodm dynamo DB document mapper
