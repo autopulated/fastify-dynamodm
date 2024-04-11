@@ -1,0 +1,47 @@
+{
+  "name": "fastify-dynamodm-example",
+  "version": "1.0.0",
+  "description": "Example fastify app using fastify-dynamodm for the DynamoDM database models.",
+  "main": "server.mjs",
+  "scripts": {
+    "lint": "standard",
+    "test": "tap"
+  },
+  "tap": {
+    "show-full-coverage": true,
+    "allow-incomplete-coverage": true,
+    "coverage-report": [
+      "text",
+      "lcovonly"
+    ],
+    "files": [
+      "app.test.mjs"
+    ]
+  },
+  "author": "James Crosby <3456211+autopulated@users.noreply.github.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/autopulated/fastify-dynamodm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/autopulated/fastify-dynamodm/issues"
+  },
+  "homepage": "https://github.com/autopulated/fastify-dynamodm",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@fastify/basic-auth": "^5.1.1",
+    "@fastify/cookie": "^9.3.1",
+    "@fastify/formbody": "^7.4.0",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/rate-limit": "^9.1.0",
+    "@fastify/session": "^10.7.0",
+    "@fastify/view": "^9.0.0",
+    "dynamodm": "^1.3.2",
+    "ejs": "^3.1.9",
+    "fastify": "^4.26.2",
+    "fastify-dynamodm": "file:.."
+  },
+  "devDependencies": {
+    "tap": "^18.7.2"
+  }
+}

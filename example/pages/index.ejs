@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script>
+      "use strict";
+
+      // simplistic web component to display and load the user's comments, using the session auth:
+      class MyComments extends HTMLElement {
+        constructor() {
+          super()
+        }
+        connectedCallback() {
+          fetch('/api/1/comments', { credentials: 'same-origin' })
+              .then(async (response) => {
+                  this.comments = await response.json()
+                  this.renderComments()
+              })
+          
+          const shadow = this.attachShadow({ mode: 'open' })
+          this.ul = document.createElement('ul')
+          const textarea = document.createElement('textarea')
+          textarea.placeholder = 'new comment'
+
+          const button = document.createElement('button')
+          button.textContent = 'Post'
+
+          const style = document.createElement('style')
+          style.textContent = `
+            :host {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+            }
+            ul {
+              list-style: none;
+            }
+          `
+          shadow.appendChild(style)
+          shadow.appendChild(this.ul)
+          shadow.appendChild(textarea)
+          shadow.appendChild(button)
+
+          button.addEventListener('click', () => {
+              fetch('/api/1/comments', { 
+                  method:'POST', 
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ text: textarea.value }), 
+                  credentials: 'same-origin'
+              })
+              .then(async (response) => {
+                  textarea.value = ''
+                  this.comments.push(await response.json())
+                  this.renderComments()
+              })
+          })
+        }
+
+        renderComments() {
+          this.ul.innerHTML = '';
+          for(const c of this.comments){
+              const li = document.createElement('li')
+              li.textContent = c.text
+              this.ul.appendChild(li)
+          }
+        }
+      }
+
+      customElements.define('my-comments', MyComments)
+  </script>
+  <head></head>
+  <body>
+    <h1>Index</h1>
+    <% if (user) { %>
+      <h2>Logged in as <%= user %></h2>
+      <my-comments></my-comments>
+    <% } else { %>
+      <h2>Not logged in</h2>
+      <a href="/login">Login</a>
+    <% } %>
+  </body>
+</html>
