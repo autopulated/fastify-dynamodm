@@ -19,7 +19,9 @@ plugin, and then `fastify.table()` will make available the dynamoDM Table handle
 ```js
 const fastify = require('fastify')({ logger: true })
 
-await fastify.register(require('.'), { tableName: 'my-dynamodb-table' })
+await fastify.register(require('fastify-dynamodm'), {
+    tableName: 'my-dynamodb-table'
+})
 
 // typically you would define your schemas in separate files:
 const { Schema } = require('dynamodm')()
@@ -56,7 +58,7 @@ For an application with multiple tables, specify the table name when calling
 ```js
 const fastify = require('fastify')()
 
-await fastify.register(require('.'), { })
+await fastify.register(require('fastify-dynamodm'), { })
 
 // typically you would define your schemas in separate files:
 const dynamodm = require('dynamodm')()
