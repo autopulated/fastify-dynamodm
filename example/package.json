@@ -1,6 +1,6 @@
 {
   "name": "fastify-dynamodm-example",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Example fastify app using fastify-dynamodm for the DynamoDM database models.",
   "main": "server.mjs",
   "scripts": {
