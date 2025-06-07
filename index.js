@@ -54,6 +54,6 @@ async function fastifyDynamoDM (fastify, options = {}) {
   })
 }
 
-module.exports = fp(fastifyDynamoDM, { fastify: '4.x', name: 'dynamodm' })
+module.exports = fp(fastifyDynamoDM, { fastify: '4.x || 5.x', name: 'dynamodm' })
 module.exports.default = fastifyDynamoDM
 module.exports.fastifyDynamoDM = fastifyDynamoDM

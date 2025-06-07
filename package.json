@@ -45,12 +45,12 @@
     "@aws-sdk/lib-dynamodb": "^3.825.0",
     "aws-sdk-client-mock": "^4.1.0",
     "eslint": "^8.57.1",
-    "fastify": "^4.29.1",
+    "fastify": "^5.3.3",
     "standard": "^17.1.2",
     "tap": "^21.1.0"
   },
   "dependencies": {
     "dynamodm": "^1.4.2",
-    "fastify-plugin": "^4.5.1"
+    "fastify-plugin": "^5.x || ^4.x"
   }
 }
