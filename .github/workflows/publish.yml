@@ -1,0 +1,75 @@
+name: Publish Node.js Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      dynamodb-local:
+        image: "amazon/dynamodb-local@sha256:0efb33fe150fade10cac796c835c5fc68cd5b15596a12442e90dfe630c73ec9a"
+        ports:
+          - 8000:8000
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: install deps
+        run: npm ci
+
+      - name: lint
+        run: npm run-script lint
+
+      - name: test
+        run: npm run-script test
+        env:
+          AWS_REGION: eu-west-1
+          AWS_ACCESS_KEY_ID: dummy
+          AWS_SECRET_ACCESS_KEY: dummy
+
+  publish-npm:
+    environment: publish
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org/'
+      - run: npm ci
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-github:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@autopulated'
+      - run: |
+          sed -i 's/"name": "fastify-dynamodm"/"name": "@autopulated\/fastify-dynamodm"/g' package*.json
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+

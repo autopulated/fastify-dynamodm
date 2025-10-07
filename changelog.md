@@ -1,3 +1,7 @@
+## 1.1.0
+ * update deps, drops support for nodejs <= 19
+ * publishing workflow with provenance
+
 ## 1.0.3
  * add support for fastify 5
 
